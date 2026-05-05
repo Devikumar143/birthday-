@@ -543,86 +543,85 @@ function resetGame() {
 
 initGame();
 
-// 11. Star Catcher Game Logic
-const catcherGame = document.getElementById('catcher-game');
-const catcherBasket = document.getElementById('catcher-basket');
-const catcherVal = document.getElementById('catcher-val');
-const catcherWin = document.getElementById('catcher-win-message');
-const catcherStart = document.getElementById('catcher-start-msg');
+// 11. Galaxy Pop Game Logic
+const portals = document.querySelectorAll('.portal');
+const popVal = document.getElementById('pop-val');
+const popWin = document.getElementById('pop-win-message');
+const startPopBtn = document.getElementById('start-pop-btn');
 
-let catcherScore = 0;
-let gameActive = false;
-let catcherStars = [];
+let lastPortal;
+let timeUp = false;
+let popScore = 0;
 
-function startCatcher() {
-    if (gameActive) return;
-    gameActive = true;
-    catcherScore = 0;
-    catcherVal.innerText = 0;
-    catcherStart.style.display = 'none';
-    catcherWin.style.display = 'none';
-    gameLoop();
+function randomTime(min, max) {
+    return Math.round(Math.random() * (max - min) + min);
 }
 
-function gameLoop() {
-    if (!gameActive) return;
+function randomPortal(portals) {
+    const idx = Math.floor(Math.random() * portals.length);
+    const portal = portals[idx];
+    if (portal === lastPortal) return randomPortal(portals);
+    lastPortal = portal;
+    return portal;
+}
 
-    // Spawn Stars
-    if (Math.random() < 0.05) {
-        spawnStar();
-    }
+function peep() {
+    const time = randomTime(600, 1200);
+    const portal = randomPortal(portals);
+    portal.classList.add('active');
+    setTimeout(() => {
+        portal.classList.remove('active');
+        if (!timeUp) peep();
+    }, time);
+}
 
-    // Move Stars
-    catcherStars.forEach((star, index) => {
-        let top = parseFloat(star.style.top) || 0;
-        top += 3 + (catcherScore * 0.1); // Accelerate
-        star.style.top = top + 'px';
-
-        // Collision Check
-        const sRect = star.getBoundingClientRect();
-        const bRect = catcherBasket.getBoundingClientRect();
-
-        if (sRect.bottom >= bRect.top && sRect.right >= bRect.left && sRect.left <= bRect.right) {
-            catcherScore++;
-            catcherVal.innerText = catcherScore;
-            star.remove();
-            catcherStars.splice(index, 1);
-            if (catcherScore >= 20) winCatcher();
-        } else if (top > 400) {
-            star.remove();
-            catcherStars.splice(index, 1);
+function startPopGame() {
+    popScore = 0;
+    popVal.innerText = 0;
+    timeUp = false;
+    popWin.style.display = 'none';
+    startPopBtn.style.display = 'none';
+    peep();
+    setTimeout(() => {
+        timeUp = true;
+        if (popScore < 15) {
+            startPopBtn.style.display = 'block';
+            startPopBtn.innerText = 'Try Again';
         }
-    });
-
-    requestAnimationFrame(gameLoop);
+    }, 20000); // 20 seconds game
 }
 
-function spawnStar() {
-    const star = document.createElement('div');
-    star.className = 'falling-star';
-    star.innerText = Math.random() > 0.3 ? '✦' : '✨';
-    star.style.left = Math.random() * 90 + '%';
-    star.style.top = '-20px';
-    catcherGame.appendChild(star);
-    catcherStars.push(star);
+function popItem(portal) {
+    if (!portal.classList.contains('active')) return;
+    popScore++;
+    portal.classList.remove('active');
+    popVal.innerText = popScore;
+    
+    // Sparkle effect
+    createSparkle(portal);
+
+    if (popScore >= 15) {
+        timeUp = true;
+        popWin.style.display = 'block';
+        startPopBtn.style.display = 'none';
+    }
 }
 
-function winCatcher() {
-    gameActive = false;
-    catcherWin.style.display = 'block';
-    // Clean up
-    catcherStars.forEach(s => s.remove());
-    catcherStars = [];
+function createSparkle(el) {
+    for (let i = 0; i < 5; i++) {
+        const s = document.createElement('div');
+        s.innerText = '✨';
+        s.style.position = 'fixed';
+        const rect = el.getBoundingClientRect();
+        s.style.left = rect.left + rect.width/2 + 'px';
+        s.style.top = rect.top + rect.height/2 + 'px';
+        s.style.pointerEvents = 'none';
+        s.style.transition = '1s';
+        document.body.appendChild(s);
+        setTimeout(() => {
+            s.style.transform = `translate(${(Math.random()-0.5)*100}px, ${(Math.random()-0.5)*100}px) scale(0)`;
+            s.style.opacity = '0';
+        }, 50);
+        setTimeout(() => s.remove(), 1000);
+    }
 }
-
-function moveBasket(e) {
-    if (!gameActive) return;
-    const rect = catcherGame.getBoundingClientRect();
-    const x = (e.clientX || (e.touches && e.touches[0].clientX)) - rect.left;
-    const pos = Math.max(20, Math.min(x, rect.width - 20));
-    catcherBasket.style.left = pos + 'px';
-}
-
-catcherGame.addEventListener('mousemove', moveBasket);
-catcherGame.addEventListener('touchmove', moveBasket, { passive: true });
-catcherGame.addEventListener('click', startCatcher);

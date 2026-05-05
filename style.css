@@ -546,62 +546,65 @@ h1, h2, h3, .emotional-text {
     .memory-card-game { width: 64px; height: 64px; }
 }
 
-/* Star Catcher Styles */
-.catcher-container {
-    width: 340px;
-    height: 400px;
-    background: var(--glass);
-    backdrop-filter: blur(10px);
-    border: 1px solid var(--glass-border);
-    border-radius: 20px;
-    position: relative;
-    overflow: hidden;
-    cursor: crosshair;
+/* Galaxy Pop Game Styles */
+.pop-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
 }
 
-.catcher-score {
-    position: absolute;
-    top: 15px;
-    left: 20px;
-    font-size: 0.8rem;
+.pop-score {
+    font-size: 0.9rem;
     letter-spacing: 2px;
     color: var(--text-dim);
-    z-index: 10;
+    margin-bottom: 1rem;
 }
 
-#catcher-basket {
+.pop-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 100px);
+    grid-template-rows: repeat(2, 100px);
+    gap: 20px;
+}
+
+.portal {
+    width: 100px;
+    height: 100px;
+    background: radial-gradient(circle, rgba(122, 0, 255, 0.2) 0%, transparent 70%);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 50%;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    box-shadow: inset 0 0 15px rgba(0,0,0,0.5);
+}
+
+.pop-item {
     position: absolute;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     font-size: 2.5rem;
-    filter: drop-shadow(0 0 10px var(--accent-pink));
-    transition: left 0.1s ease-out;
-    user-select: none;
+    top: 100%; /* Hidden below */
+    transition: top 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    filter: drop-shadow(0 0 10px #fff);
     pointer-events: none;
 }
 
-.falling-star {
-    position: absolute;
-    font-size: 1.2rem;
-    filter: drop-shadow(0 0 5px #fff);
-    pointer-events: none;
+.portal.active .pop-item {
+    top: 0;
 }
 
-#catcher-start-msg {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 0.8rem;
-    color: var(--accent-cyan);
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    animation: pulse 1.5s infinite;
+.portal:active {
+    background: radial-gradient(circle, rgba(0, 242, 255, 0.2) 0%, transparent 70%);
 }
 
 @media (max-width: 768px) {
-    .catcher-container { width: 300px; height: 350px; }
+    .pop-grid { grid-template-columns: repeat(3, 80px); grid-template-rows: repeat(2, 80px); gap: 10px; }
+    .portal { width: 80px; height: 80px; }
 }
 
 .heart-icon {

@@ -112,6 +112,25 @@
             <div class="wheel-hint reveal-content stagger-3">Spin the Galaxy</div>
         </section>
 
+        <!-- Section 4: The Memory Game -->
+        <section id="game-section">
+            <h2 class="emotional-text reveal-content stagger-1" style="margin-bottom: 2vh; opacity: 0.6; text-align: center;">Memory Match</h2>
+            <p class="handwritten reveal-content stagger-2" style="font-size: 1.2rem; margin-bottom: 4vh; color: var(--text-dim);">Find the pairs hidden in the stars...</p>
+            
+            <div class="game-container reveal-content stagger-3">
+                <div class="memory-grid" id="memory-grid">
+                    <!-- Cards will be injected by JS -->
+                </div>
+                
+                <div class="game-info">
+                    <span class="game-stat">Flips: <span id="flip-count">0</span></span>
+                    <button class="btn-discovery" onclick="resetGame()" style="padding: 0.5rem 1.5rem; font-size: 0.5rem;">Reset Stars</button>
+                </div>
+            </div>
+
+            <div id="game-win-message" class="handwritten" style="display:none; margin-top: 3vh; color: var(--accent-cyan);">You remember everything! 💖</div>
+        </section>
+
         <!-- Section 5: The Hidden Word -->
         <section>
             <div style="text-align: center;">

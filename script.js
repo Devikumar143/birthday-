@@ -487,3 +487,78 @@ function initWheel() {
 }
 
 initWheel();
+
+// 10. Memory Match Game Logic
+const gameImages = [
+    'image.png', 'image copy.png', 'image copy 4.png', 
+    'image copy 5.png', 'image copy 2.png', 'image copy 3.png'
+];
+const grid = document.getElementById('memory-grid');
+const flipDisplay = document.getElementById('flip-count');
+const winMsg = document.getElementById('game-win-message');
+
+let cards = [];
+let flippedCards = [];
+let flips = 0;
+let matchedCount = 0;
+
+function initGame() {
+    if (!grid) return;
+    grid.innerHTML = '';
+    cards = [...gameImages, ...gameImages];
+    cards.sort(() => Math.random() - 0.5);
+    flips = 0;
+    matchedCount = 0;
+    flipDisplay.innerText = flips;
+    winMsg.style.display = 'none';
+
+    cards.forEach((img, i) => {
+        const card = document.createElement('div');
+        card.classList.add('memory-card-game');
+        card.dataset.img = img;
+        card.innerHTML = `
+            <div class="card-face card-front">✦</div>
+            <div class="card-face card-back"><img src="${img}" alt="memory"></div>
+        `;
+        card.addEventListener('click', flipCard);
+        grid.appendChild(card);
+    });
+}
+
+function flipCard() {
+    if (flippedCards.length < 2 && !this.classList.contains('flipped') && !this.classList.contains('matched')) {
+        this.classList.add('flipped');
+        flippedCards.push(this);
+
+        if (flippedCards.length === 2) {
+            flips++;
+            flipDisplay.innerText = flips;
+            checkMatch();
+        }
+    }
+}
+
+function checkMatch() {
+    const [c1, c2] = flippedCards;
+    if (c1.dataset.img === c2.dataset.img) {
+        c1.classList.add('matched');
+        c2.classList.add('matched');
+        flippedCards = [];
+        matchedCount += 2;
+        if (matchedCount === cards.length) {
+            winMsg.style.display = 'block';
+        }
+    } else {
+        setTimeout(() => {
+            c1.classList.remove('flipped');
+            c2.classList.remove('flipped');
+            flippedCards = [];
+        }, 1000);
+    }
+}
+
+function resetGame() {
+    initGame();
+}
+
+initGame();

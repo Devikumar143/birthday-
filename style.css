@@ -455,6 +455,92 @@ h1, h2, h3, .emotional-text {
     animation: starPulse 2s infinite ease-in-out;
 }
 
+/* Memory Match Game Styles */
+.game-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+}
+
+.memory-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    width: 340px;
+}
+
+.memory-card-game {
+    width: 75px;
+    height: 75px;
+    position: relative;
+    cursor: pointer;
+    transform-style: preserve-3d;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.memory-card-game.flipped {
+    transform: rotateY(180deg);
+}
+
+.card-face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 8px;
+    border: 1px solid var(--glass-border);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-front {
+    background: var(--glass);
+    backdrop-filter: blur(5px);
+    font-size: 1.5rem;
+    color: var(--accent-cyan);
+    text-shadow: 0 0 10px var(--accent-cyan);
+}
+
+.card-back {
+    background: #fff;
+    transform: rotateY(180deg);
+    overflow: hidden;
+}
+
+.card-back img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.memory-card-game.matched {
+    cursor: default;
+    box-shadow: 0 0 20px var(--accent-pink);
+    border-color: var(--accent-pink);
+}
+
+.game-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 0 10px;
+}
+
+.game-stat {
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+}
+
+@media (max-width: 768px) {
+    .memory-grid { width: 280px; gap: 8px; }
+    .memory-card-game { width: 64px; height: 64px; }
+}
+
 .heart-icon {
     width: 60px;
     height: 60px;

@@ -23,7 +23,7 @@
 
     <script>
         // INSTANT LOADER - Runs before anything else
-        (function() {
+        (function () {
             let p = 0;
             const b = document.getElementById('loader-bar');
             const t = document.getElementById('progress-text');
@@ -65,7 +65,9 @@
             <div class="reveal-content">
                 <!-- Normal Countdown (hidden on birthday) -->
                 <div id="countdown-display">
-                    <h2 class="emotional-text stagger-1" style="margin-bottom: 4rem; opacity: 0.9; color: var(--accent-pink); text-shadow: 0 0 15px var(--accent-pink);">Advance Happy Birthday, Bestie! ✨</h2>
+                    <h2 class="emotional-text stagger-1"
+                        style="margin-bottom: 4rem; opacity: 0.9; color: var(--accent-pink); text-shadow: 0 0 15px var(--accent-pink);">
+                        Advance Happy Birthday, Bestie! ✨</h2>
                     <div class="countdown-flex stagger-2">
                         <div class="item"><span class="c-val" id="days">00</span><span class="c-label">Days</span></div>
                         <div class="item"><span class="c-val" id="hours">00</span><span class="c-label">Hrs</span></div>
@@ -119,11 +121,11 @@
                         <div class="card-caption">Infinite Laughs</div>
                     </div>
                     <div class="memory-card" style="--i:7;">
-                        <img src="ghibliglimmers-20251004-0010.jpg" alt="Memory 7">
+                        <img src="image copy 6.png" alt="Memory 7">
                         <div class="card-caption">Star Gazing</div>
                     </div>
                     <div class="memory-card" style="--i:8;">
-                        <img src="ghibliglimmers-20251004-0008.jpg" alt="Memory 8">
+                        <img src="WhatsApp Image 2026-05-06 at 12.49.20 AM.jpeg" alt="Memory 8">
                         <div class="card-caption">Our Universe</div>
                     </div>
                 </div>
@@ -134,42 +136,65 @@
 
         <!-- Section 4: The Memory Game -->
         <section id="game-section">
-            <h2 class="emotional-text reveal-content stagger-1" style="margin-bottom: 2vh; opacity: 0.6; text-align: center;">Memory Match</h2>
-            <p class="handwritten reveal-content stagger-2" style="font-size: 1.2rem; margin-bottom: 4vh; color: var(--text-dim);">Find the pairs hidden in the stars...</p>
-            
+            <h2 class="emotional-text reveal-content stagger-1"
+                style="margin-bottom: 2vh; opacity: 0.6; text-align: center;">Memory Match</h2>
+            <p class="handwritten reveal-content stagger-2"
+                style="font-size: 1.2rem; margin-bottom: 4vh; color: var(--text-dim);">Find the pairs hidden in the
+                stars...</p>
+
             <div class="game-container reveal-content stagger-3">
                 <div class="memory-grid" id="memory-grid">
                     <!-- Cards will be injected by JS -->
                 </div>
-                
+
                 <div class="game-info">
                     <span class="game-stat">Flips: <span id="flip-count">0</span></span>
-                    <button class="btn-discovery" onclick="resetGame()" style="padding: 0.5rem 1.5rem; font-size: 0.5rem;">Reset Stars</button>
+                    <button class="btn-discovery" onclick="resetGame()"
+                        style="padding: 0.5rem 1.5rem; font-size: 0.5rem;">Reset Stars</button>
                 </div>
             </div>
 
-            <div id="game-win-message" class="handwritten" style="display:none; margin-top: 3vh; color: var(--accent-cyan);">You remember everything! 💖</div>
+            <div id="game-win-message" class="handwritten"
+                style="display:none; margin-top: 3vh; color: var(--accent-cyan);">You remember everything! 💖</div>
         </section>
 
         <!-- Section 5: The Galaxy Pop Game -->
         <section id="galaxy-pop-section">
-            <h2 class="emotional-text reveal-content stagger-1" style="margin-bottom: 2vh; opacity: 0.6; text-align: center;">Galaxy Pop</h2>
-            <p class="handwritten reveal-content stagger-2" style="font-size: 1.2rem; margin-bottom: 4vh; color: var(--text-dim);">Tap the stars as they leap from the void...</p>
-            
+            <h2 class="emotional-text reveal-content stagger-1"
+                style="margin-bottom: 2vh; opacity: 0.6; text-align: center;">Galaxy Pop</h2>
+            <p class="handwritten reveal-content stagger-2"
+                style="font-size: 1.2rem; margin-bottom: 4vh; color: var(--text-dim);">Tap the stars as they leap from
+                the void...</p>
+
             <div class="pop-container reveal-content stagger-3">
                 <div class="pop-score">Stars Popped: <span id="pop-val">0</span>/15</div>
                 <div class="pop-grid">
-                    <div class="portal" onclick="popItem(this)"><div class="pop-item">⭐</div></div>
-                    <div class="portal" onclick="popItem(this)"><div class="pop-item">❤️</div></div>
-                    <div class="portal" onclick="popItem(this)"><div class="pop-item">⭐</div></div>
-                    <div class="portal" onclick="popItem(this)"><div class="pop-item">⭐</div></div>
-                    <div class="portal" onclick="popItem(this)"><div class="pop-item">❤️</div></div>
-                    <div class="portal" onclick="popItem(this)"><div class="pop-item">⭐</div></div>
+                    <div class="portal" onclick="popItem(this)">
+                        <div class="pop-item">⭐</div>
+                    </div>
+                    <div class="portal" onclick="popItem(this)">
+                        <div class="pop-item">❤️</div>
+                    </div>
+                    <div class="portal" onclick="popItem(this)">
+                        <div class="pop-item">⭐</div>
+                    </div>
+                    <div class="portal" onclick="popItem(this)">
+                        <div class="pop-item">⭐</div>
+                    </div>
+                    <div class="portal" onclick="popItem(this)">
+                        <div class="pop-item">❤️</div>
+                    </div>
+                    <div class="portal" onclick="popItem(this)">
+                        <div class="pop-item">⭐</div>
+                    </div>
                 </div>
-                <button class="btn-discovery" id="start-pop-btn" onclick="startPopGame()" style="margin-top: 30px; padding: 0.5rem 2rem;">Open Portals</button>
+                <button class="btn-discovery" id="start-pop-btn" onclick="startPopGame()"
+                    style="margin-top: 30px; padding: 0.5rem 2rem;">Open Portals</button>
             </div>
 
-            <div id="pop-win-message" class="handwritten" style="display:none; margin-top: 3vh; color: var(--accent-cyan); font-size: 1.5rem;">You're a Star! ✨</div>
+            <div id="pop-win-message" class="handwritten"
+                style="display:none; margin-top: 3vh; color: var(--accent-cyan); font-size: 1.5rem;">You're a Star! ✨
+            </div>
         </section>
 
         <!-- Section 5: The Hidden Word -->

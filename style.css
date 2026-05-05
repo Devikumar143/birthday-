@@ -541,6 +541,64 @@ h1, h2, h3, .emotional-text {
     .memory-card-game { width: 64px; height: 64px; }
 }
 
+/* Star Catcher Styles */
+.catcher-container {
+    width: 340px;
+    height: 400px;
+    background: var(--glass);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    position: relative;
+    overflow: hidden;
+    cursor: crosshair;
+}
+
+.catcher-score {
+    position: absolute;
+    top: 15px;
+    left: 20px;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    color: var(--text-dim);
+    z-index: 10;
+}
+
+#catcher-basket {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 2.5rem;
+    filter: drop-shadow(0 0 10px var(--accent-pink));
+    transition: left 0.1s ease-out;
+    user-select: none;
+    pointer-events: none;
+}
+
+.falling-star {
+    position: absolute;
+    font-size: 1.2rem;
+    filter: drop-shadow(0 0 5px #fff);
+    pointer-events: none;
+}
+
+#catcher-start-msg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 0.8rem;
+    color: var(--accent-cyan);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    animation: pulse 1.5s infinite;
+}
+
+@media (max-width: 768px) {
+    .catcher-container { width: 300px; height: 350px; }
+}
+
 .heart-icon {
     width: 60px;
     height: 60px;

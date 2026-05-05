@@ -562,3 +562,87 @@ function resetGame() {
 }
 
 initGame();
+
+// 11. Star Catcher Game Logic
+const catcherGame = document.getElementById('catcher-game');
+const catcherBasket = document.getElementById('catcher-basket');
+const catcherVal = document.getElementById('catcher-val');
+const catcherWin = document.getElementById('catcher-win-message');
+const catcherStart = document.getElementById('catcher-start-msg');
+
+let catcherScore = 0;
+let gameActive = false;
+let stars = [];
+
+function startCatcher() {
+    if (gameActive) return;
+    gameActive = true;
+    catcherScore = 0;
+    catcherVal.innerText = 0;
+    catcherStart.style.display = 'none';
+    catcherWin.style.display = 'none';
+    gameLoop();
+}
+
+function gameLoop() {
+    if (!gameActive) return;
+
+    // Spawn Stars
+    if (Math.random() < 0.05) {
+        spawnStar();
+    }
+
+    // Move Stars
+    stars.forEach((star, index) => {
+        let top = parseFloat(star.style.top) || 0;
+        top += 3 + (catcherScore * 0.1); // Accelerate
+        star.style.top = top + 'px';
+
+        // Collision Check
+        const sRect = star.getBoundingClientRect();
+        const bRect = catcherBasket.getBoundingClientRect();
+
+        if (sRect.bottom >= bRect.top && sRect.right >= bRect.left && sRect.left <= bRect.right) {
+            catcherScore++;
+            catcherVal.innerText = catcherScore;
+            star.remove();
+            stars.splice(index, 1);
+            if (catcherScore >= 20) winCatcher();
+        } else if (top > 400) {
+            star.remove();
+            stars.splice(index, 1);
+        }
+    });
+
+    requestAnimationFrame(gameLoop);
+}
+
+function spawnStar() {
+    const star = document.createElement('div');
+    star.className = 'falling-star';
+    star.innerText = Math.random() > 0.3 ? '✦' : '✨';
+    star.style.left = Math.random() * 90 + '%';
+    star.style.top = '-20px';
+    catcherGame.appendChild(star);
+    stars.push(star);
+}
+
+function winCatcher() {
+    gameActive = false;
+    catcherWin.style.display = 'block';
+    // Clean up
+    stars.forEach(s => s.remove());
+    stars = [];
+}
+
+function moveBasket(e) {
+    if (!gameActive) return;
+    const rect = catcherGame.getBoundingClientRect();
+    const x = (e.clientX || (e.touches && e.touches[0].clientX)) - rect.left;
+    const pos = Math.max(20, Math.min(x, rect.width - 20));
+    catcherBasket.style.left = pos + 'px';
+}
+
+catcherGame.addEventListener('mousemove', moveBasket);
+catcherGame.addEventListener('touchmove', moveBasket, { passive: true });
+catcherGame.addEventListener('click', startCatcher);

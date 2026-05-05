@@ -21,6 +21,27 @@
         </div>
     </div>
 
+    <script>
+        // INSTANT LOADER - Runs before anything else
+        (function() {
+            let p = 0;
+            const b = document.getElementById('loader-bar');
+            const t = document.getElementById('progress-text');
+            const iv = setInterval(() => {
+                p += Math.random() * 12;
+                if (p >= 100) {
+                    p = 100;
+                    clearInterval(iv);
+                    setTimeout(() => document.body.classList.add('loaded'), 500);
+                }
+                if (b) b.style.width = p + '%';
+                if (t) t.innerText = Math.floor(p) + '%';
+            }, 100);
+            // Panic Button: Force hide after 5s
+            setTimeout(() => { document.body.classList.add('loaded'); clearInterval(iv); }, 5000);
+        })();
+    </script>
+
     <div class="vignette"></div>
     <div class="nebula"></div>
     <div class="milky-way"></div>

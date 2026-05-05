@@ -99,7 +99,8 @@ body::after {
     transition: var(--transition);
 }
 
-.reveal-content.active {
+.reveal-content.active,
+.loaded .reveal-content {
     opacity: 1;
     transform: translateY(0);
 }
@@ -120,6 +121,8 @@ canvas#starfield {
 
 /* Journey Layout */
 #journey-wrapper {
+    position: relative;
+    z-index: 10;
     height: 100vh;
     overflow-y: auto;
     scroll-snap-type: y mandatory;
@@ -308,6 +311,8 @@ h1, h2, h3, .emotional-text {
 
 /* Buttons */
 .btn-discovery {
+    position: relative;
+    z-index: 100;
     background: none;
     border: 1px solid var(--accent-pink);
     color: #fff;

@@ -2,35 +2,15 @@
  * Unique Discovery Experience - Script V4
  */
 
-// 0. Robust Loading Screen Logic
-document.addEventListener('DOMContentLoaded', () => {
-    let progress = 0;
-    const loaderBar = document.getElementById('loader-bar');
-    const progressText = document.getElementById('progress-text');
-    const loader = document.getElementById('loader');
-
-    const progressInterval = setInterval(() => {
-        progress += Math.random() * 8; // Slightly slower, smoother steps
-        if (progress >= 100) {
-            progress = 100;
-            clearInterval(progressInterval);
-            setTimeout(() => {
-                document.body.classList.add('loaded');
-            }, 500);
-        }
-        if (loaderBar) loaderBar.style.width = `${progress}%`;
-        if (progressText) progressText.innerText = `${Math.floor(progress)}%`;
-    }, 100);
-
-    // Safety Fallback: Force hide loader after 6 seconds
-    setTimeout(() => {
-        document.body.classList.add('loaded');
-        clearInterval(progressInterval);
-    }, 6000);
-});
-
 function startJourney() {
-    document.getElementById('landing').style.display = 'none';
+    const wrapper = document.getElementById('journey-wrapper');
+    const countdown = document.getElementById('countdown');
+    if (wrapper && countdown) {
+        wrapper.scrollTo({
+            top: countdown.offsetTop,
+            behavior: 'smooth'
+        });
+    }
 }
 
 // 1. Particle Cursor Trail (Hearts + Star Dust)
@@ -174,17 +154,8 @@ drawStars();
 
 
 // 4. Experience Logic
-function startJourney() {
-    const music = document.getElementById('bg-music');
-    if(music && music.paused) music.play().catch(() => {});
-    const countdown = document.getElementById('countdown');
-    if(countdown) countdown.scrollIntoView({ behavior: 'smooth' });
-}
+// Consolidated startJourney moved to top
 
-document.addEventListener('click', () => {
-    const music = document.getElementById('bg-music');
-    if(music && music.paused) music.play().catch(() => {});
-}, { once: true });
 
 // 5. Countdown — Birthday: May 29, 2026
 const bDay = new Date(2026, 4, 29, 0, 0, 0).getTime();
@@ -581,7 +552,7 @@ const catcherStart = document.getElementById('catcher-start-msg');
 
 let catcherScore = 0;
 let gameActive = false;
-let stars = [];
+let catcherStars = [];
 
 function startCatcher() {
     if (gameActive) return;
@@ -602,7 +573,7 @@ function gameLoop() {
     }
 
     // Move Stars
-    stars.forEach((star, index) => {
+    catcherStars.forEach((star, index) => {
         let top = parseFloat(star.style.top) || 0;
         top += 3 + (catcherScore * 0.1); // Accelerate
         star.style.top = top + 'px';
@@ -615,11 +586,11 @@ function gameLoop() {
             catcherScore++;
             catcherVal.innerText = catcherScore;
             star.remove();
-            stars.splice(index, 1);
+            catcherStars.splice(index, 1);
             if (catcherScore >= 20) winCatcher();
         } else if (top > 400) {
             star.remove();
-            stars.splice(index, 1);
+            catcherStars.splice(index, 1);
         }
     });
 
@@ -633,15 +604,15 @@ function spawnStar() {
     star.style.left = Math.random() * 90 + '%';
     star.style.top = '-20px';
     catcherGame.appendChild(star);
-    stars.push(star);
+    catcherStars.push(star);
 }
 
 function winCatcher() {
     gameActive = false;
     catcherWin.style.display = 'block';
     // Clean up
-    stars.forEach(s => s.remove());
-    stars = [];
+    catcherStars.forEach(s => s.remove());
+    catcherStars = [];
 }
 
 function moveBasket(e) {

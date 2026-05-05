@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discovery | For You</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Loading Screen -->
+    <div id="loader">
+        <div class="loader-content">
+            <div class="loader-star"></div>
+            <p class="handwritten" style="margin-bottom: 20px;">Calibrating the Stars...</p>
+            <div class="loader-progress-wrap">
+                <div id="loader-bar"></div>
+            </div>
+            <div id="progress-text">0%</div>
+        </div>
+    </div>
+
+    <div class="vignette"></div>
+    <div class="nebula"></div>
+    <div class="milky-way"></div>
+    <!-- Background Starfield -->
+    <canvas id="starfield"></canvas>
+
+    <div id="journey-wrapper">
+        <!-- Section 1: The Star Landing -->
+        <section id="landing">
+            <div class="portal-container reveal-content" style="text-align: center;">
+                <div class="heart-icon stagger-1"></div>
+                <p class="handwritten stagger-2" style="margin-bottom: 3rem; font-size: 2.2rem;">For my favorite human in the
+                    whole world...</p>
+                <button class="btn-discovery stagger-3" onclick="startJourney()">Let's Go!</button>
+            </div>
+        </section>
+
+        <!-- Section 2: The Time -->
+        <section id="countdown">
+            <div class="reveal-content">
+                <!-- Normal Countdown (hidden on birthday) -->
+                <div id="countdown-display">
+                    <h2 class="emotional-text stagger-1" style="margin-bottom: 4rem; opacity: 0.7;">Waiting for the perfect moment...</h2>
+                    <div class="countdown-flex stagger-2">
+                        <div class="item"><span class="c-val" id="days">00</span><span class="c-label">Days</span></div>
+                        <div class="item"><span class="c-val" id="hours">00</span><span class="c-label">Hrs</span></div>
+                        <div class="item"><span class="c-val" id="minutes">00</span><span class="c-label">Min</span></div>
+                        <div class="item"><span class="c-val" id="seconds">00</span><span class="c-label">Sec</span></div>
+                    </div>
+                </div>
+
+                <!-- Birthday Mode (shown only on May 29) -->
+                <div id="birthday-mode" style="display:none; text-align:center;">
+                    <canvas id="confetti-canvas" style="position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:999;"></canvas>
+                    <div class="bday-glow-text">🎉</div>
+                    <h1 class="bday-headline">IT'S YOUR DAY!!</h1>
+                    <p class="handwritten bday-sub">Happy Birthday, Bestie 💖</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: The 3D Orbiting Gallery -->
+        <section id="gallery-section">
+            <h2 class="emotional-text reveal-content stagger-1" style="margin-bottom: 5vh; opacity: 0.6; text-align: center;">Our Universe of Memories</h2>
+            
+            <div class="gallery-scene reveal-content stagger-2">
+                <div class="gallery-wheel" id="gallery-wheel">
+                    <div class="memory-card" style="--i:1;">
+                        <img src="ghibliglimmers-20251007-0008.jpg" alt="Memory 1">
+                        <div class="card-caption">The First Spark</div>
+                    </div>
+                    <div class="memory-card" style="--i:2;">
+                        <img src="ghibliglimmers-20251004-0010.jpg" alt="Memory 2">
+                        <div class="card-caption">Midnight Talks</div>
+                    </div>
+                    <div class="memory-card" style="--i:3;">
+                        <img src="ghibliglimmers-20251004-0008.jpg" alt="Memory 3">
+                        <div class="card-caption">Chaos Mode</div>
+                    </div>
+                    <div class="memory-card" style="--i:4;">
+                        <img src="ghibliglimmers-20251004-0006.jpg" alt="Memory 4">
+                        <div class="card-caption">Pure Vibes</div>
+                    </div>
+                    <div class="memory-card" style="--i:5;">
+                        <img src="ghibliglimmers-20251004-0002.jpg" alt="Memory 5">
+                        <div class="card-caption">Forever Bestie</div>
+                    </div>
+                    <div class="memory-card" style="--i:6;">
+                        <img src="ghibliglimmers-20251007-0008.jpg" alt="Memory 6">
+                        <div class="card-caption">Infinite Laughs</div>
+                    </div>
+                    <div class="memory-card" style="--i:7;">
+                        <img src="ghibliglimmers-20251004-0010.jpg" alt="Memory 7">
+                        <div class="card-caption">Star Gazing</div>
+                    </div>
+                    <div class="memory-card" style="--i:8;">
+                        <img src="ghibliglimmers-20251004-0008.jpg" alt="Memory 8">
+                        <div class="card-caption">Our Universe</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="wheel-hint reveal-content stagger-3">Spin the Galaxy</div>
+        </section>
+
+        <!-- Section 5: The Hidden Word -->
+        <section>
+            <div style="text-align: center;">
+                <h2 class="emotional-text" style="margin-bottom: 2rem;">A Secret Bestie Note...</h2>
+                <button class="btn-discovery" id="reveal-btn" onclick="revealSecret()">Reveal</button>
+                <p id="secret-text" style="display: none; margin-top: 3rem; font-size: 1.8rem;" class="handwritten">
+                    "I don't say it often, but you're genuinely one of the best people I know."
+                </p>
+            </div>
+        </section>
+
+        <!-- Section 6: Birthday Message -->
+        <section>
+            <div style="max-width: 600px; text-align: center;">
+                <p class="handwritten" style="margin-bottom: 2rem;">To my best friend,</p>
+                <p class="emotional-text" style="font-size: 1.5rem; line-height: 2;">
+                    You make life 100% better just by being in it. Thank you for always
+                    having my back and for being the incredible person you are.
+                    I'm so lucky to call you my friend.
+                </p>
+            </div>
+        </section>
+
+        <!-- Section 7: The Constellation Connector -->
+        <section id="constellation-section">
+            <h2 class="emotional-text" style="margin-bottom: 3rem; opacity: 0.6; text-align: center;">Connect the stars
+                of our journey...</h2>
+            <canvas id="constellation-canvas" width="320" height="320"
+                style="cursor: pointer; display: block; margin: 0 auto;"></canvas>
+            <p id="constellation-hint" class="handwritten" style="margin-top: 2rem; font-size: 1.2rem; opacity: 0.5;">
+                Tap the stars to form the bond...</p>
+        </section>
+
+        <!-- Section 8: The Finale -->
+        <section id="finale" style="display: none;">
+            <div class="finale-content" style="text-align: center;">
+                <h1 class="emotional-text" style="font-size: clamp(3rem, 10vw, 6rem); margin-bottom: 2rem;">Happy
+                    Birthday!</h1>
+
+                <!-- Candle removed -->
+
+                <div id="final-letter" class="handwritten"
+                    style="font-size: 2rem; margin-top: 4rem; min-height: 80px; color: var(--accent-pink);">
+                    <!-- Typewriter text -->
+                </div>
+
+                <p class="emotional-text"
+                    style="margin-top: 15vh; opacity: 0.3; letter-spacing: 8px; font-size: 0.6rem; text-transform: uppercase;">
+                    Forever My Best Friend</p>
+            </div>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

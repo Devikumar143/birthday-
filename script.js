@@ -2,23 +2,32 @@
  * Unique Discovery Experience - Script V4
  */
 
-// 0. Loading Screen Logic
-let progress = 0;
-const loaderBar = document.getElementById('loader-bar');
-const progressText = document.getElementById('progress-text');
+// 0. Robust Loading Screen Logic
+document.addEventListener('DOMContentLoaded', () => {
+    let progress = 0;
+    const loaderBar = document.getElementById('loader-bar');
+    const progressText = document.getElementById('progress-text');
+    const loader = document.getElementById('loader');
 
-const progressInterval = setInterval(() => {
-    progress += Math.random() * 15;
-    if (progress >= 100) {
-        progress = 100;
+    const progressInterval = setInterval(() => {
+        progress += Math.random() * 8; // Slightly slower, smoother steps
+        if (progress >= 100) {
+            progress = 100;
+            clearInterval(progressInterval);
+            setTimeout(() => {
+                document.body.classList.add('loaded');
+            }, 500);
+        }
+        if (loaderBar) loaderBar.style.width = `${progress}%`;
+        if (progressText) progressText.innerText = `${Math.floor(progress)}%`;
+    }, 100);
+
+    // Safety Fallback: Force hide loader after 6 seconds
+    setTimeout(() => {
+        document.body.classList.add('loaded');
         clearInterval(progressInterval);
-        setTimeout(() => {
-            document.body.classList.add('loaded');
-        }, 500);
-    }
-    if (loaderBar) loaderBar.style.width = `${progress}%`;
-    if (progressText) progressText.innerText = `${Math.floor(progress)}%`;
-}, 150);
+    }, 6000);
+});
 
 function startJourney() {
     document.getElementById('landing').style.display = 'none';

@@ -663,11 +663,11 @@ h1, h2, h3, .emotional-text {
 }
 
 .loader-progress-wrap {
-    width: 200px;
-    height: 2px;
-    background: rgba(255, 255, 255, 0.1);
-    margin: 0 auto 10px;
-    border-radius: 2px;
+    width: 220px;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.05);
+    margin: 0 auto 15px;
+    border-radius: 4px;
     overflow: hidden;
 }
 
@@ -675,8 +675,8 @@ h1, h2, h3, .emotional-text {
     width: 0%;
     height: 100%;
     background: var(--accent-pink);
-    box-shadow: 0 0 10px var(--accent-pink);
-    transition: width 0.3s ease-out;
+    box-shadow: 0 0 15px var(--accent-pink), 0 0 30px var(--accent-pink);
+    transition: width 0.4s cubic-bezier(0.1, 0.5, 0.1, 1);
 }
 
 #progress-text {
